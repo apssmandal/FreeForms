@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation — FreeForms</title>
+  <meta name="description" content="Learn how to use FreeForms — how to integrate HTML forms, use AJAX, and configure special fields." />
+  <link rel="stylesheet" href="/css/main.css?v=2" />
+  <style>
+    body { overflow-x: hidden; }
+    .docs-layout { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+    .docs-sidebar {
+      position: sticky; top: 0; height: 100vh; overflow-y: auto;
+      background: var(--surface); border-right: 1px solid var(--border);
+      padding: 24px 0;
+    }
+    .docs-sidebar .nav-logo { padding: 0 20px 24px; border-bottom: 1px solid var(--border); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1rem; }
+    .docs-nav-section { padding: 0 12px; margin-bottom: 12px; }
+    .docs-nav-label { font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; padding: 6px 8px; }
+    .docs-nav-links-wrap { margin-left: 14px; padding-left: 10px; border-left: 1px solid var(--border); display: flex; flex-direction: column; gap: 4px; position: relative; }
+    .docs-nav-link { display: block; padding: 6px 10px; border-radius: 6px; color: var(--muted); font-size: 0.85rem; transition: all 0.2s; text-decoration: none; position: relative; }
+    .docs-nav-link::before { content: ''; position: absolute; left: -10px; top: 50%; width: 8px; height: 1px; background: var(--border); transition: all 0.2s; }
+    .docs-nav-link:hover { color: var(--text); background: var(--card); }
+    .docs-nav-link.active { color: var(--primary); background: rgba(124,111,255,0.1); font-weight: 500; }
+    .docs-nav-link.active::before { background: var(--primary); }
+    .docs-content { padding: 60px; max-width: 860px; }
+    .docs-section { margin-bottom: 72px; scroll-margin-top: 40px; }
+    .docs-section h2 { font-size: 1.8rem; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .docs-section h3 { font-size: 1.15rem; margin: 28px 0 10px; }
+    .docs-section p { color: var(--muted); margin-bottom: 14px; line-height: 1.7; }
+    .docs-section ul, .docs-section ol { color: var(--muted); padding-left: 20px; margin-bottom: 14px; }
+    .docs-section li { padding: 3px 0; line-height: 1.7; }
+    .docs-code {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; margin: 20px 0;
+    }
+    .docs-code-head { padding: 11px 18px; background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+    .docs-code-dots { display: flex; gap: 6px; }
+    .docs-code-dots span { width: 11px; height: 11px; border-radius: 50%; }
+    .docs-code pre { padding: 20px 22px; margin: 0; overflow-x: auto; font-size: 0.83rem; line-height: 1.8; color: #3c4043; }
+    .inline-code { background: rgba(124,111,255,0.12); color: var(--primary); padding: 2px 7px; border-radius: 5px; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+    .docs-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    .docs-table th { padding: 10px 14px; text-align: left; font-size: 0.78rem; color: var(--muted); text-transform: uppercase; border-bottom: 2px solid var(--border); }
+    .docs-table td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.88rem; vertical-align: top; }
+    .docs-table td:first-child { font-family: 'JetBrains Mono', monospace; color: var(--accent); }
+    .docs-table tr:last-child td { border-bottom: none; }
+    .callout { border-radius: 10px; padding: 16px 20px; margin: 20px 0; font-size: 0.9rem; border-left: 3px solid; }
+    .callout-info { background: rgba(124,111,255,0.08); border-color: var(--primary); color: var(--muted); }
+    .callout-note { background: rgba(251,191,36,0.08); border-color: var(--warn); color: var(--muted); }
+    .callout strong { color: var(--text); }
+    @media (max-width: 768px) {
+      .docs-layout { grid-template-columns: 1fr; }
+      .docs-sidebar { height: auto; position: static; }
+      .docs-content { padding: 30px 20px; }
+    }
+  </style>
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+<div class="docs-layout">
+
+  <!-- Sidebar -->
+  <aside class="docs-sidebar">
+    <div class="docs-nav-section">
+      <a href="/" class="nav-logo">
+        <div class="logo-icon">FF</div>
+        <span>FreeForms</span>
+      </a>
+    </div>
+    <div class="docs-nav-section">
+      <div class="docs-nav-label">Getting Started</div>
+      <div class="docs-nav-links-wrap">
+        <a href="#quickstart" class="docs-nav-link active">Quick Start</a>
+        <a href="#setup" class="docs-nav-link">Account Setup</a>
+      </div>
+    </div>
+    <div class="docs-nav-section">
+      <div class="docs-nav-label">Integration</div>
+      <div class="docs-nav-links-wrap">
+        <a href="#html" class="docs-nav-link">HTML Forms</a>
+        <a href="#ajax" class="docs-nav-link">AJAX / fetch()</a>
+        <a href="#special" class="docs-nav-link">Special Fields</a>
+      </div>
+    </div>
+    <div class="docs-nav-section">
+      <div class="docs-nav-label">Features</div>
+      <div class="docs-nav-links-wrap">
+        <a href="#spam" class="docs-nav-link">Spam Protection</a>
+        <a href="#email" class="docs-nav-link">Email Setup</a>
+        <a href="#export" class="docs-nav-link">Export Data</a>
+      </div>
+    </div>
+    <div class="docs-nav-section">
+      <div class="docs-nav-label">Self Hosting</div>
+      <div class="docs-nav-links-wrap">
+        <a href="#self-host" class="docs-nav-link">Firebase Setup</a>
+        <a href="#deploy" class="docs-nav-link">Deploy</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <main class="docs-content">
+
+    <section class="docs-section" id="quickstart">
+      <h2>Quick Start</h2>
+      <p>FreeForms lets you collect form submissions from any HTML page without writing server-side code. Here's what you need:</p>
+      <ol>
+        <li>Create a free account at <a href="/auth.html?tab=register" style="color:var(--primary)">FreeForms</a></li>
+        <li>Create a new form in the dashboard to get your unique endpoint ID</li>
+        <li>Add the endpoint URL as your form's <span class="inline-code">action</span> attribute</li>
+        <li>Submit the form — it works immediately!</li>
+      </ol>
+      <div class="docs-code">
+        <div class="docs-code-head">
+          <div class="docs-code-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></div>
+          <span style="font-size:0.78rem;color:var(--muted)">contact.html</span>
+        </div>
+        <pre><code>&lt;form action="https://YOUR-APP.web.app/f/YOUR-FORM-ID" method="POST"&gt;
+  &lt;input type="email" name="email" placeholder="Your email" required /&gt;
+  &lt;textarea name="message" placeholder="Your message"&gt;&lt;/textarea&gt;
+  &lt;button type="submit"&gt;Send Message&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+      </div>
+    </section>
+
+    <section class="docs-section" id="setup">
+      <h2>Account Setup</h2>
+      <p>After signing up, go to your <a href="/dashboard.html" style="color:var(--primary)">Dashboard</a> and click <strong>+ New Form</strong>.</p>
+      <p>Each form gets a unique ID. Your submission endpoint will be:</p>
+      <div class="docs-code">
+        <pre><code>POST https://YOUR-APP.web.app/f/{formId}</code></pre>
+      </div>
+      <p>Copy this URL — you'll use it as the <span class="inline-code">action</span> attribute on your HTML form, or as the URL in your <span class="inline-code">fetch()</span> call.</p>
+    </section>
+
+    <section class="docs-section" id="html">
+      <h2>HTML Forms</h2>
+      <p>The simplest integration — no JavaScript needed. The form will redirect to a thank-you page after submission.</p>
+      <div class="docs-code">
+        <div class="docs-code-head"><div class="docs-code-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></div></div>
+        <pre><code>&lt;form action="https://YOUR-APP.web.app/f/YOUR-FORM-ID" method="POST"&gt;
+
+  &lt;!-- Optional: redirect to your own page after submission --&gt;
+  &lt;input type="hidden" name="_next" value="https://yoursite.com/thanks.html" /&gt;
+
+  &lt;!-- Optional: custom email subject --&gt;
+  &lt;input type="hidden" name="_subject" value="New contact message!" /&gt;
+
+  &lt;!-- Spam protection: keep this hidden! --&gt;
+  &lt;input type="text" name="_honeypot" style="display:none" tabindex="-1" autocomplete="off" /&gt;
+
+  &lt;label&gt;
+    Email
+    &lt;input type="email" name="email" required /&gt;
+  &lt;/label&gt;
+
+  &lt;label&gt;
+    Message
+    &lt;textarea name="message" required&gt;&lt;/textarea&gt;
+  &lt;/label&gt;
+
+  &lt;button type="submit"&gt;Send&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+      </div>
+      <p>Every input field in your form will be captured. Use any <span class="inline-code">name</span> attributes — they'll appear as columns in your dashboard.</p>
+    </section>
+
+    <section class="docs-section" id="ajax">
+      <h2>AJAX / fetch()</h2>
+      <p>For a better UX without page reloads, use the Fetch API. Set the <span class="inline-code">Accept: application/json</span> header to get a JSON response instead of a redirect.</p>
+      <div class="docs-code">
+        <div class="docs-code-head"><div class="docs-code-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></div></div>
+        <pre><code>async function handleSubmit(event) {
+  event.preventDefault();
+  const form   = event.target;
+  const button = form.querySelector('[type="submit"]');
+
+  button.disabled    = true;
+  button.textContent = 'Sending…';
+
+  try {
+    const response = await fetch(
+      'https://YOUR-APP.web.app/f/YOUR-FORM-ID',
+      {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      }
+    );
+
+    if (response.ok) {
+      const json = await response.json();
+      // json = { ok: true, message: "Submission received." }
+      form.innerHTML = '&lt;p&gt;Thanks! We\'ll be in touch.&lt;/p&gt;';
+    } else {
+      throw new Error('Submission failed');
+    }
+  } catch (err) {
+    alert('Something went wrong. Please try again.');
+    button.disabled    = false;
+    button.textContent = 'Send';
+  }
+}
+
+document.querySelector('form').addEventListener('submit', handleSubmit);</code></pre>
+      </div>
+      <div class="callout callout-info">
+        <strong>JSON Response:</strong> When you include <span class="inline-code">Accept: application/json</span>, the endpoint returns <span class="inline-code">{"ok": true, "message": "Submission received."}</span> instead of redirecting.
+      </div>
+    </section>
+
+    <section class="docs-section" id="special">
+      <h2>Special Fields</h2>
+      <p>Add hidden inputs with these special names to control behavior. They won't appear in your submission data.</p>
+      <table class="docs-table">
+        <thead>
+          <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>_next</td><td>URL</td><td>Redirect URL after a successful submission (overrides dashboard setting).</td></tr>
+          <tr><td>_subject</td><td>String</td><td>Subject line for the notification email.</td></tr>
+          <tr><td>_replyto</td><td>Email</td><td>Sets the Reply-To header so you can reply directly to the submitter.</td></tr>
+          <tr><td>_cc</td><td>Email</td><td>CC this email on every notification.</td></tr>
+          <tr><td>_honeypot</td><td>String</td><td>Spam trap — any submission with this field filled is silently discarded.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="docs-section" id="spam">
+      <h2>Spam Protection</h2>
+      <p>FreeForms uses a <strong>honeypot field</strong> technique. Add a hidden text input named <span class="inline-code">_honeypot</span> (or your custom name from Settings). Bots that auto-fill all fields will trigger this trap and the submission is silently dropped.</p>
+      <div class="docs-code">
+        <pre><code>&lt;!-- Add this to any form. Keep it invisible to humans! --&gt;
+&lt;input
+  type="text"
+  name="_honeypot"
+  style="display:none !important"
+  tabindex="-1"
+  autocomplete="off"
+/&gt;</code></pre>
+      </div>
+      <div class="callout callout-note">
+        <strong>Tip:</strong> You can change the honeypot field name in your Form's Settings tab. This makes it slightly harder for sophisticated bots to detect.
+      </div>
+    </section>
+
+    <section class="docs-section" id="email">
+      <h2>Email Notifications</h2>
+      <p>FreeForms sends you an email every time your form is submitted. Configure the notification email address in your Form Settings.</p>
+      <div class="callout callout-note">
+        <strong>Self-Hosting Note:</strong> Email requires a Firebase Blaze plan (pay-as-you-go, very cheap) and SMTP configuration. Set these Firebase Function env vars:
+      </div>
+      <div class="docs-code">
+        <pre><code>firebase functions:config:set \
+  smtp.host="smtp.gmail.com" \
+  smtp.port="587" \
+  smtp.user="you@gmail.com" \
+  smtp.pass="your-gmail-app-password" \
+  smtp.from="you@gmail.com"</code></pre>
+      </div>
+      <p>For Gmail, create an <strong>App Password</strong> at <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener" style="color:var(--primary)">myaccount.google.com/apppasswords</a>. Other SMTP providers like SendGrid, Mailgun, etc. also work.</p>
+    </section>
+
+    <section class="docs-section" id="export">
+      <h2>Export Data</h2>
+      <p>Download all submissions for a form from the Submissions tab in the dashboard.</p>
+      <ul>
+        <li><strong>CSV</strong> — Opens in Excel, Numbers, or Google Sheets</li>
+        <li><strong>JSON</strong> — Machine-readable, includes all metadata</li>
+      </ul>
+      <p>Exports include submission date, read status, and all form field data.</p>
+    </section>
+
+    <section class="docs-section" id="self-host">
+      <h2>Self Hosting</h2>
+      <p>FreeForms is 100% open source (MIT). You can run it on your own Firebase project.</p>
+      <h3>Prerequisites</h3>
+      <ul>
+        <li>Node.js 18+</li>
+        <li>Firebase CLI: <span class="inline-code">npm install -g firebase-tools</span></li>
+        <li>A Firebase project (Blaze plan for email notifications)</li>
+      </ul>
+      <h3>Setup Steps</h3>
+      <div class="docs-code">
+        <pre><code># 1. Clone the repository
+git clone https://github.com/apssmandal/FreeForms.git
+cd freeforms
+
+# 2. Install Cloud Function dependencies
+cd functions && npm install && cd ..
+
+# 3. Edit your Firebase config
+# → Open public/js/firebase-config.js
+# → Replace placeholder values with your Firebase project credentials
+# → Open .firebaserc and replace YOUR_FIREBASE_PROJECT_ID
+
+# 4. Enable Authentication in Firebase Console
+# → Go to Authentication → Sign-in method
+# → Enable Email/Password and Google</code></pre>
+      </div>
+    </section>
+
+    <section class="docs-section" id="deploy">
+      <h2>Deploy</h2>
+      <div class="docs-code">
+        <pre><code># Login to Firebase
+firebase login
+
+# Set SMTP config (optional but needed for email)
+firebase functions:config:set \
+  smtp.host="smtp.gmail.com" \
+  smtp.port="587" \
+  smtp.user="you@gmail.com" \
+  smtp.pass="your-app-password"
+
+# Deploy everything
+firebase deploy
+
+# Or deploy independently:
+firebase deploy --only hosting     # Frontend only
+firebase deploy --only functions   # Backend only
+firebase deploy --only firestore   # Rules + indexes only</code></pre>
+      </div>
+      <p>Your app will be live at <span class="inline-code">https://YOUR-PROJECT-ID.web.app</span></p>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('.docs-section');
+  const navLinks = document.querySelectorAll('.docs-nav-link');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
+    });
+  });
+
+  // Smooth scroll without changing URL hash
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>

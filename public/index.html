@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreeForms — Open Source Form Backend</title>
+  <meta name="description" content="FreeForms is a free, open-source form backend. Point your HTML forms at our endpoint and get email notifications, spam protection, and a submission dashboard. No server code needed." />
+  <link rel="stylesheet" href="/css/main.css?v=2" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      <div class="logo-icon">FF</div>
+      <span>FreeForms</span>
+    </a>
+    <div class="nav-links">
+      <a href="/docs.html">Docs</a>
+      <a href="https://github.com/apssmandal/FreeForms" target="_blank" rel="noopener">GitHub</a>
+      <a href="/auth.html" class="btn btn-ghost">Sign In</a>
+      <a href="/auth.html?tab=register" class="btn btn-primary">Get Started Free</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="/docs.html">Docs</a>
+    <a href="https://github.com/apssmandal/FreeForms" target="_blank">GitHub</a>
+    <a href="/auth.html">Sign In</a>
+    <a href="/auth.html?tab=register" class="btn btn-primary">Get Started Free</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+  <div class="container hero-content">
+    <div class="hero-badge"><span class="badge-dot"></span>Free &amp; Open Source Forever</div>
+    <h1 class="hero-title">
+      Forms that just work.<br>
+      <span class="gradient-text">No backend needed.</span>
+    </h1>
+    <p class="hero-subtitle">
+      Point your HTML form's <code>action</code> at our endpoint. 
+      We handle email notifications, spam filtering, and store everything in a clean dashboard.
+    </p>
+    <div class="hero-actions">
+      <a href="/auth.html?tab=register" class="btn btn-primary btn-lg">Get Started Free →</a>
+      <a href="/docs.html" class="btn btn-ghost btn-lg">View Docs</a>
+    </div>
+
+    <!-- Code preview card -->
+    <div class="hero-code-card">
+      <div class="code-header">
+        <div class="code-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <span class="code-filename">contact.html</span>
+      </div>
+      <pre class="code-preview"><code><span class="ct">&lt;</span><span class="ct-tag">form</span>
+  <span class="ct-attr">action</span>=<span class="ct-str">"https://freeforms.web.app/f/<span class="ct-id">your-form-id</span>"</span>
+  <span class="ct-attr">method</span>=<span class="ct-str">"POST"</span><span class="ct">&gt;</span>
+
+  <span class="ct">&lt;</span><span class="ct-tag">input</span> <span class="ct-attr">type</span>=<span class="ct-str">"hidden"</span> <span class="ct-attr">name</span>=<span class="ct-str">"_next"</span> <span class="ct-attr">value</span>=<span class="ct-str">"https://yoursite.com/thanks"</span><span class="ct">/&gt;</span>
+  <span class="ct">&lt;</span><span class="ct-tag">input</span> <span class="ct-attr">type</span>=<span class="ct-str">"email"</span> <span class="ct-attr">name</span>=<span class="ct-str">"email"</span> <span class="ct-attr">required</span><span class="ct">/&gt;</span>
+  <span class="ct">&lt;</span><span class="ct-tag">textarea</span> <span class="ct-attr">name</span>=<span class="ct-str">"message"</span> <span class="ct-attr">required</span><span class="ct">&gt;&lt;/</span><span class="ct-tag">textarea</span><span class="ct">&gt;</span>
+  <span class="ct">&lt;</span><span class="ct-tag">button</span> <span class="ct-attr">type</span>=<span class="ct-str">"submit"</span><span class="ct">&gt;</span>Send<span class="ct">&lt;/</span><span class="ct-tag">button</span><span class="ct">&gt;</span>
+
+<span class="ct">&lt;/</span><span class="ct-tag">form</span><span class="ct">&gt;</span></code></pre>
+      <div class="code-footer">
+        <span class="code-hint">✓ That's it. No server-side code required.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="section features">
+  <div class="container">
+    <div class="section-header">
+      <h2>Everything you need. Nothing you don't.</h2>
+    </div>
+    <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+      <div class="feature-card reveal" style="text-align: center; padding: 48px 32px;">
+        <div class="feature-icon" style="display:flex;justify-content:center;margin-bottom:24px;">
+          <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48" fill="var(--primary)"><path d="M480-120q-126-38-203-127t-77-226v-287l280-100 280 100v287q0 137-77 226T480-120Zm-40-362-97-97 57-57 40 40 108-108 57 57-165 165Z"/></svg>
+        </div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 12px;">Spam Blocked By Default</h3>
+        <p style="font-size: 0.95rem;">Built-in honeypot technology silently eliminates automated bot submissions. Your dashboard and inbox receive only real, human messages.</p>
+      </div>
+      <div class="feature-card reveal" style="text-align: center; padding: 48px 32px;">
+        <div class="feature-icon" style="display:flex;justify-content:center;margin-bottom:24px;">
+          <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48" fill="var(--success)"><path d="M160-120q-33 0-56.5-23.5T80-200v-560q0-33 23.5-56.5T160-840h640q33 0 56.5 23.5T880-760v560q0 33-23.5 56.5T800-120H160Zm0-80h640v-560H160v560Zm80-120h120v-240H240v240Zm200 0h120v-320H440v320Zm200 0h120v-160H640v160ZM160-760v560-560Z"/></svg>
+        </div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 12px;">Minimalist Dashboard</h3>
+        <p style="font-size: 0.95rem;">View, search, and organize all your form submissions in a beautiful, distraction-free web UI. Download your raw data natively as CSV or JSON anytime.</p>
+      </div>
+      <div class="feature-card reveal" style="text-align: center; padding: 48px 32px;">
+        <div class="feature-icon" style="display:flex;justify-content:center;margin-bottom:24px;">
+          <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48" fill="var(--warn)"><path d="M320-240 80-480l240-240 57 57-184 184 183 183-56 56Zm320 0-57-57 184-184-183-183 56-56 240 240-240 240Z"/></svg>
+        </div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 12px;">100% Open Source</h3>
+        <p style="font-size: 0.95rem;">MIT licensed. Instantly deploy and self-host on your own free Firebase architecture so you always maintain absolute ownership of your data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-section">
+  <div class="container">
+    <div class="cta-card reveal">
+      <div class="cta-orb"></div>
+      <h2>Start accepting form submissions today</h2>
+      <p>Free forever. Open source. Self-hostable on your own Firebase. No credit card required.</p>
+      <a href="/auth.html?tab=register" class="btn btn-white btn-lg">Create Free Account →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="nav-logo"><div class="logo-icon">FF</div><span>FreeForms</span></a>
+        <p>A free, open-source form backend service for developers and indie makers.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Product</h4>
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/auth.html?tab=register">Get Started</a>
+        <a href="/docs.html">Documentation</a>
+      </div>
+      <div class="footer-links">
+        <h4>Docs</h4>
+        <a href="/docs.html#html">HTML Forms</a>
+        <a href="/docs.html#ajax">AJAX / fetch()</a>
+        <a href="/docs.html#special">Special Fields</a>
+        <a href="/docs.html#self-host">Self Hosting</a>
+      </div>
+      <div class="footer-links">
+        <h4>Open Source</h4>
+        <a href="https://github.com/apssmandal/FreeForms" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/apssmandal/FreeForms/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>
+        <a href="https://github.com/apssmandal/FreeForms/issues" target="_blank" rel="noopener">Report a Bug</a>
+        <a href="https://github.com/apssmandal/FreeForms/discussions" target="_blank" rel="noopener">Discussions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="footer-year">2024</span> FreeForms. Released under the MIT License.</p>
+      <p>Built with ❤️ for the open web.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  // Navbar scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+  // Mobile nav
+  document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('navMobile').classList.toggle('open');
+  });
+  // Code tabs
+  document.querySelectorAll('.code-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const name = tab.dataset.tab;
+      document.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.code-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(`code-${name}`)?.classList.add('active');
+    });
+  });
+  // Scroll reveal
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>

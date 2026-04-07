@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form Detail — FreeForms</title>
+  <link rel="stylesheet" href="/css/docs.css?v=2" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+<div class="dash-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a href="/" class="sidebar-logo">
+      <div class="logo-icon">FF</div>
+      <span>FreeForms</span>
+    </a>
+    <nav class="sidebar-nav">
+      <a href="/dashboard.html" class="nav-item active">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor"><path d="M320-240h320v-80H320v80Zm0-160h320v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg> My Forms
+      </a>
+      <a href="/profile.html" class="nav-item">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5t126 46.5q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"/></svg> Profile
+      </a>
+      <a href="/docs.html" class="nav-item">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor"><path d="M260-320q47 0 91.5 10.5T440-278v-394q-41-24-87-36t-93-12q-36 0-71.5 7T120-692v396q35-12 69.5-18t70.5-6Zm260 42q44-21 88.5-31.5T700-320q36 0 70.5 6t69.5 18v-396q-33-14-68.5-21t-71.5-7q-47 0-93 12t-87 36v394Zm-40 118q-48-38-104-59t-116-21q-42 0-82.5 11T100-198q-21 11-40.5-1T40-228v-482q0-11 5.5-21T60-746q46-24 96-34t104-10q58 0 113.5 15T480-720q51-40 106.5-55T700-790q54 0 104 10t96 34q11 5 16.5 15t5.5 21v482q0 23-19.5 35t-40.5 1q-37-20-77.5-31T700-240q-60 0-116 21t-104 59ZM280-400Zm400 0Z"/></svg> Documentation
+      </a>
+    </nav>
+    <div class="sidebar-user" style="flex-direction: column; align-items: flex-start; gap: 16px;">
+      <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
+        <div class="user-avatar" id="user-avatar">?</div>
+        <div class="user-info" style="flex: 1; overflow: hidden;">
+          <div class="user-name" id="user-name">Loading…</div>
+          <div class="user-email" id="user-email"></div>
+        </div>
+      </div>
+      <button class="btn btn-ghost" id="btn-logout" style="width: 100%; justify-content: center; font-size: 0.88rem; color: var(--text);">
+        <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
+        Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="/dashboard.html">Dashboard</a>
+        <span class="breadcrumb-sep">›</span>
+        <span id="breadcrumb-name">Loading…</span>
+      </div>
+      <div style="font-size:1rem;font-weight:700" id="form-title"></div>
+    </div>
+
+    <div class="page-content">
+      <!-- Tab Bar -->
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="submissions" id="tab-submissions-btn" style="display:flex;align-items:center;gap:6px;"><svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18" fill="currentColor"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200Z"/></svg> Submissions</button>
+        <button class="tab-btn" data-tab="integration" id="tab-integration-btn" style="display:flex;align-items:center;gap:6px;"><svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18" fill="currentColor"><path d="M320-240 80-480l240-240 57 57-184 184 183 183-56 56Zm320 0-57-57 184-184-183-183 56-56 240 240-240 240Z"/></svg> Integration</button>
+        <button class="tab-btn" data-tab="settings" id="tab-settings-btn" style="display:flex;align-items:center;gap:6px;"><svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18" fill="currentColor"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm112-260q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Z"/></svg> Settings</button>
+      </div>
+
+      <!-- ── SUBMISSIONS TAB ── -->
+            <div class="tab-panel active" id="tab-submissions">
+        <div class="table-wrap">
+          <div class="table-toolbar">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-weight:600;font-size:0.9rem">Submissions</span>
+              <span class="badge badge-unread" id="sub-count">0</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <input class="search-input" type="search" id="sub-search" placeholder="Search submissions…" />
+              <div class="export-btns">
+                <button class="btn btn-ghost btn-sm" id="btn-export-csv"><svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="16" fill="currentColor" style="margin-right:6px"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg>CSV</button>
+                <button class="btn btn-ghost btn-sm" id="btn-export-json"><svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="16" fill="currentColor" style="margin-right:6px"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg>JSON</button>
+              </div>
+            </div>
+          </div>
+          <table>
+            <thead id="subs-thead">
+              <tr>
+                <th>Serial No</th><th>Date and Time</th><th>Data</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="subs-tbody">
+              <tr><td colspan="4"><div class="loading-center"><div class="spinner"></div></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── INTEGRATION TAB ── -->
+      <div class="tab-panel" id="tab-integration">
+        <div class="integration-section">
+          <!-- Endpoint -->
+          <div class="int-card">
+            <div class="int-card-head">
+              <span class="int-card-title">Your Form Endpoint</span>
+              <button class="btn btn-ghost btn-sm" id="btn-copy-endpoint"><svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="16" fill="currentColor" style="margin-right:6px;"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>Copy</button>
+            </div>
+            <div class="code-block" id="endpoint-display" style="font-size:0.9rem;color:var(--accent)"></div>
+          </div>
+
+          <!-- HTML -->
+          <div class="int-card">
+            <div class="int-card-head">
+              <span class="int-card-title">HTML Form</span>
+              <button class="btn btn-ghost btn-sm" id="btn-copy-html"><svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="16" fill="currentColor" style="margin-right:6px;"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>Copy</button>
+            </div>
+            <pre class="code-block" id="html-snippet"></pre>
+          </div>
+
+          <!-- JS -->
+          <div class="int-card">
+            <div class="int-card-head">
+              <span class="int-card-title">JavaScript / fetch()</span>
+              <button class="btn btn-ghost btn-sm" id="btn-copy-js"><svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="16" fill="currentColor" style="margin-right:6px;"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>Copy</button>
+            </div>
+            <pre class="code-block" id="js-snippet"></pre>
+          </div>
+
+          <!-- Special fields reference -->
+          <div class="int-card">
+            <div class="int-card-head">
+              <span class="int-card-title">Special Fields Reference</span>
+            </div>
+            <table style="width:100%;border-collapse:collapse">
+              <thead>
+                <tr>
+                  <th style="padding:10px 16px;text-align:left;font-size:0.78rem;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--border)">Field Name</th>
+                  <th style="padding:10px 16px;text-align:left;font-size:0.78rem;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--border)">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td style="padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04)"><code style="color:var(--accent)">_next</code></td><td style="padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--muted);font-size:0.88rem">Redirect URL after submission (overrides dashboard setting)</td></tr>
+                <tr><td style="padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04)"><code style="color:var(--accent)">_subject</code></td><td style="padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--muted);font-size:0.88rem">Custom email subject line</td></tr>
+                <tr><td style="padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04)"><code style="color:var(--accent)">_replyto</code></td><td style="padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--muted);font-size:0.88rem">Sets the Reply-To header in notification email</td></tr>
+                <tr><td style="padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04)"><code style="color:var(--accent)">_cc</code></td><td style="padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--muted);font-size:0.88rem">CC additional email addresses</td></tr>
+                <tr><td style="padding:10px 16px"><code style="color:var(--accent)">_honeypot</code></td><td style="padding:10px 16px;color:var(--muted);font-size:0.88rem">Hidden spam trap field (configurable name in Settings)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SETTINGS TAB ── -->
+      <div class="tab-panel" id="tab-settings">
+        <div class="settings-section">
+          <form id="settings-form">
+            <div class="settings-card" style="margin-bottom:20px">
+              <h3>General</h3>
+              <p>Basic form configuration.</p>
+              <div class="form-group">
+                <label class="form-label" for="s-name">Form Name</label>
+                <input class="form-input" type="text" id="s-name" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="s-email">Notification Email</label>
+                <input class="form-input" type="email" id="s-email" />
+                <div class="form-hint">Receive an email on every submission.</div>
+              </div>
+              <div class="toggle-row">
+                <div>
+                  <div class="toggle-label" id="lbl-form-active">Form Active</div>
+                  <div class="toggle-desc">When paused, submissions will be rejected with a 403 error.</div>
+                </div>
+                <label class="toggle">
+                  <input type="checkbox" id="s-active" />
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="settings-card" style="margin-bottom:20px">
+              <h3>Submission Behavior</h3>
+              <p>Customize what happens after a form is submitted.</p>
+              <div class="form-group">
+                <label class="form-label" for="s-redirect">Redirect URL after submission</label>
+                <input class="form-input" type="url" id="s-redirect" placeholder="https://yoursite.com/thanks" />
+                <div class="form-hint">Leave blank to redirect to our default thank-you page. Can be overridden per-submission with the <code>_next</code> field.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="s-subject">Default Email Subject</label>
+                <input class="form-input" type="text" id="s-subject" placeholder="New submission: My Form" />
+              </div>
+            </div>
+
+            <div class="settings-card" style="margin-bottom:20px">
+              <h3>Security & Anti-Spam</h3>
+              <p>Keep bots out and restrict where submissions can come from.</p>
+              
+              <div class="toggle-row" style="margin-bottom:12px; border-bottom:none; padding-top:0">
+                <div>
+                  <div class="toggle-label">Domain Restriction</div>
+                  <div class="toggle-desc">Only accept submissions from specific domains.</div>
+                </div>
+                <label class="toggle">
+                  <input type="checkbox" id="s-domain-active" />
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              
+              <div class="form-group" id="s-domain-group" style="display:none">
+                <label class="form-label" for="s-domains">Allowed Domains</label>
+                <input class="form-input" type="text" id="s-domains" placeholder="example.com, mydomain.org" />
+                <div class="form-hint">Comma separated.</div>
+              </div>
+
+              <div class="form-group" style="margin-top:18px; border-top:1px solid var(--border); padding-top:18px">
+                <label class="form-label" for="s-honeypot">Honeypot Field Name</label>
+                <input class="form-input" type="text" id="s-honeypot" placeholder="_honeypot" />
+                <div class="form-hint">Add a hidden input with this name to your form to trap bots. Default: <code>_honeypot</code></div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:12px;align-items:center">
+              <button type="submit" class="btn btn-primary" id="btn-save-settings">Save Settings</button>
+            </div>
+          </form>
+
+          <div style="margin-top:40px;padding-top:24px;border-top:1px solid var(--border)">
+            <h3 style="margin-bottom:8px;color:var(--danger)">Danger Zone</h3>
+            <p style="color:var(--muted);font-size:0.88rem;margin-bottom:16px">Permanently delete this form and all its submissions. This cannot be undone.</p>
+            <button class="btn btn-danger" id="btn-delete-form">Delete This Form</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /page-content -->
+  </main>
+</div>
+
+<div id="toast-container" class="toast-container"></div>
+
+<script type="module" src="/js/form.js?v=2"></script>
+</body>
+</html>

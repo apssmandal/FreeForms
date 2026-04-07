@@ -1,0 +1,8 @@
+node_modules/
+.env
+.firebaserc
+public/js/firebase-config.js
+.firebase/
+npm-debug.log
+firebase-debug.log
+*.log

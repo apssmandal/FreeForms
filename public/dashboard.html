@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — FreeForms</title>
+  <link rel="stylesheet" href="/css/dashboard.css?v=2" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+<div class="dash-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a href="/" class="sidebar-logo">
+      <div class="logo-icon">FF</div>
+      <span>FreeForms</span>
+    </a>
+    <nav class="sidebar-nav">
+      <a href="/dashboard.html" class="nav-item active">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor"><path d="M320-240h320v-80H320v80Zm0-160h320v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg> My Forms
+      </a>
+      <a href="/profile.html" class="nav-item">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5t126 46.5q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"/></svg> Profile
+      </a>
+      <a href="/docs.html" class="nav-item">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor"><path d="M260-320q47 0 91.5 10.5T440-278v-394q-41-24-87-36t-93-12q-36 0-71.5 7T120-692v396q35-12 69.5-18t70.5-6Zm260 42q44-21 88.5-31.5T700-320q36 0 70.5 6t69.5 18v-396q-33-14-68.5-21t-71.5-7q-47 0-93 12t-87 36v394Zm-40 118q-48-38-104-59t-116-21q-42 0-82.5 11T100-198q-21 11-40.5-1T40-228v-482q0-11 5.5-21T60-746q46-24 96-34t104-10q58 0 113.5 15T480-720q51-40 106.5-55T700-790q54 0 104 10t96 34q11 5 16.5 15t5.5 21v482q0 23-19.5 35t-40.5 1q-37-20-77.5-31T700-240q-60 0-116 21t-104 59ZM280-400Zm400 0Z"/></svg> Documentation
+      </a>
+    </nav>
+    <div class="sidebar-user" style="flex-direction: column; align-items: flex-start; gap: 16px;">
+      <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
+        <div class="user-avatar" id="user-avatar">?</div>
+        <div class="user-info" style="flex: 1; overflow: hidden;">
+          <div class="user-name" id="user-name">Loading…</div>
+          <div class="user-email" id="user-email"></div>
+        </div>
+      </div>
+      <button class="btn btn-ghost" id="btn-logout" style="width: 100%; justify-content: center; font-size: 0.88rem; color: var(--text);">
+        <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
+        Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <div id="verify-banner" style="display:none; background:rgba(251,191,36,0.15); border-bottom:1px solid rgba(251,191,36,0.4); color:var(--warn); padding:12px 32px; font-size:0.92rem; font-weight:600; align-items:center; justify-content:space-between; z-index:10;">
+    <div>⚠️ Please verify your email address to ensure account security.</div>
+    <button id="btn-resend-verify" class="btn btn-sm" style="background:var(--warn);color:#000;border:none">Resend Email</button>
+  </div>
+  <div class="topbar">
+      <div class="topbar-title">My Forms</div>
+      <button class="btn btn-primary" id="btn-create">+ New Form</button>
+    </div>
+
+    <div class="page-content">
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card stat-primary">
+          <div class="stat-label">Total Forms</div>
+          <div class="stat-value" id="stat-forms">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Submissions</div>
+          <div class="stat-value" id="stat-subs">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Active Forms</div>
+          <div class="stat-value" id="stat-active">—</div>
+        </div>
+      </div>
+
+      <!-- Forms Grid -->
+      <div class="section-head">
+        <h2>Your Forms</h2>
+      </div>
+      <div class="forms-grid" id="forms-grid">
+        <div class="loading-overlay" style="grid-column:1/-1">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Create Form Modal -->
+<div class="modal-overlay" id="modal-create">
+  <div class="modal">
+    <div class="modal-title">Create New Form</div>
+    <p class="modal-sub">Give your form a name and set where to send notification emails.</p>
+    <form id="create-form" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="form-name-input">Form Name <span style="color:var(--danger)">*</span></label>
+        <input class="form-input" type="text" id="form-name-input" placeholder="e.g. Contact Form" required />
+        <div class="form-hint">This is only for your reference inside the dashboard.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="form-email-input">Notification Email</label>
+        <input class="form-input" type="email" id="form-email-input" placeholder="Leave blank to use your account email" />
+        <div class="form-hint">We'll send you an email whenever your form is submitted.</div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="btn-close-create">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="btn-create-submit">Create Form</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Delete Confirm Modal -->
+<div class="modal-overlay" id="modal-delete">
+  <div class="modal">
+    <div class="modal-title">Delete Form</div>
+    <p>Are you sure you want to delete <strong id="delete-form-name"></strong>? This will permanently delete all submissions and cannot be undone.</p>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" id="btn-close-delete">Cancel</button>
+      <button type="button" class="btn btn-danger" id="btn-confirm-delete">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container" class="toast-container"></div>
+
+<script type="module" src="/js/dashboard.js?v=2"></script>
+</body>
+</html>
