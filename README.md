@@ -32,5 +32,25 @@ firebase login
 firebase deploy
 ```
 
+### 4. Firestore Database Setup
+By default, your new Firebase project needs a database to store forms and submissions.
+1. In the Firebase Console, traverse to **Firestore Database** on the left panel.
+2. Click **Create database**. Start in **Production mode** to keep it secure out of the box.
+3. Choose a geographic location close to your users.
+4. When you deploy FreeForms via `firebase deploy`, the `firestore.rules` included in this repository will automatically compile and restrict external database access natively, securing your data instantly.
+
+### 5. Outbound Networking (Blaze Plan)
+Google inherently restricts external network calls on the default free plan tier (Spark). Since FreeForms relies on NodeMailer sending SMTP requests outward to your inbox:
+1. You must explicitly upgrade your Firebase project to the **Blaze (Pay-as-you-go)** plan to allow Cloud Functions to hit external SMTP mail servers.
+2. The free allowance on the Blaze plan is extraordinarily generous and accommodates standard indie/maker application capacity before billing actually triggers. (See [Firebase Pricing](https://firebase.google.com/pricing)).
+
+---
+
+## 📚 Official Documentation
+For complete API references, fetch() payload structures, React UI template configurations, and spam-mitigation strategies, explore the interactive protocol sheet here:
+**[FreeForms Developer Documentation](https://freeforms-app.web.app/docs.html)**
+
+---
+
 ## Contributions and Support
 FreeForms operates on standard MIT Licensing structure. Pull requests, feedback, and issue submissions are actively monitored and encouraged!
