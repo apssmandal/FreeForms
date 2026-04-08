@@ -168,6 +168,8 @@ p  { color: var(--muted); line-height: 1.7; }
 .nav-mobile.open { display: flex; }
 .nav-mobile a { padding: 12px 14px; border-radius: 8px; color: var(--muted); font-size: 1.05rem; }
 .nav-mobile a:hover { color: var(--text); background: var(--card); }
+.nav-mobile a.btn-primary { color: #ffffff; text-align: center; justify-content: center; background: var(--primary); }
+.nav-mobile a.btn-primary:hover { background: var(--primary-d); color: #ffffff; }
 
 /* ── Hero ── */
 .hero {
