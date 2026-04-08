@@ -12,7 +12,8 @@ export function toast(message, type = 'info', duration = 3500) {
   const el = document.createElement('div');
   el.className = `toast toast-${type}`;
   const icons = { success: '✓', error: '✕', info: 'ℹ' };
-  el.innerHTML = `<span>${icons[type] || 'ℹ'}</span><span>${message}</span>`;
+  el.innerHTML = `<span>${icons[type] || 'ℹ'}</span><span class="toast-msg"></span>`;
+  el.querySelector('.toast-msg').textContent = message;
   container.appendChild(el);
   setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity 0.3s'; setTimeout(() => el.remove(), 300); }, duration);
 }

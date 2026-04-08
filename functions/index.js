@@ -5,6 +5,7 @@ const admin = require('firebase-admin');
 const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
+const rateLimit = require('express-rate-limit');
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -21,7 +22,14 @@ function escapeHtml(str) {
 function sendResponse(req, res, redirectUrl) {
   const wantsJson = (req.headers['accept'] || '').includes('application/json');
   if (wantsJson) return res.json({ ok: true, message: 'Submission received.' });
-  return res.redirect(302, redirectUrl || '/thanks.html');
+  let safeUrl = '/thanks.html';
+  if (redirectUrl) {
+    try {
+      const parsed = new URL(redirectUrl, 'https://dummy.com');
+      if (['http:', 'https:'].includes(parsed.protocol)) safeUrl = redirectUrl;
+    } catch(e) {}
+  }
+  return res.redirect(302, safeUrl);
 }
 
 async function sendNotificationEmail(form, data, meta) {
@@ -70,12 +78,20 @@ async function sendNotificationEmail(form, data, meta) {
 // ─────────────────────────────────────────────────────────────
 // SUBMIT FORM  —  POST /f/{formId}
 // ─────────────────────────────────────────────────────────────
-exports.submitForm = functions.https.onRequest(async (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
-  res.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.set('Access-Control-Allow-Headers', 'Content-Type, Accept');
-  if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Use POST' });
+const submitLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 50,
+  message: { error: 'Too many submissions. Please wait before trying again.' },
+  keyGenerator: req => (req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '').split(',')[0].trim()
+});
+
+exports.submitForm = functions.https.onRequest((req, res) => {
+  submitLimiter(req, res, async () => {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.set('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    if (req.method === 'OPTIONS') return res.status(200).end();
+    if (req.method !== 'POST') return res.status(405).json({ error: 'Use POST' });
 
   const parts = req.path.split('/').filter(Boolean);
   const formId = parts[parts.length - 1];
@@ -134,14 +150,23 @@ exports.submitForm = functions.https.onRequest(async (req, res) => {
     console.error('submitForm:', err);
     return res.status(500).json({ error: 'Server error' });
   }
+  });
 });
 
 // ─────────────────────────────────────────────────────────────
 // REST API  —  /api/**  (requires Firebase Auth Bearer token)
 // ─────────────────────────────────────────────────────────────
 const app = express();
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 200,
+  message: { error: 'Too many API requests, please try again later.' }
+});
+
 app.set('trust proxy', 1);
-app.use(cors({ origin: true }));
+const allowedCorsConfig = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : '*';
+app.use(cors({ origin: allowedCorsConfig }));
+app.use(apiLimiter);
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
