@@ -208,14 +208,14 @@ code { font-family: 'JetBrains Mono', monospace; }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .dash-layout { flex-direction: column; }
-  .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); }
+  .dash-layout { flex-direction: column !important; }
+  .sidebar { width: 100% !important; height: auto !important; position: static !important; border-right: none; border-bottom: 1px solid var(--border); }
   .sidebar-logo { padding: 16px 20px; border-bottom: none; }
   .sidebar-nav { flex-direction: row; overflow-x: auto; padding: 0 16px 12px; }
   .nav-item { flex-shrink: 0; }
-  .sidebar-user { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .sidebar-user { flex-direction: row !important; padding: 16px 20px !important; border-top: 1px solid var(--border) !important; align-items: center !important; justify-content: space-between !important; }
   
-  .main-content { margin-left: 0; width: 100%; overflow-x: hidden; }
+  .main-content { margin-left: 0 !important; width: 100% !important; overflow-x: hidden; }
   .topbar { padding: 16px 20px; flex-wrap: wrap; gap: 12px; }
   .page-content { padding: 20px 16px; }
   
